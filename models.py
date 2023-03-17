@@ -26,7 +26,7 @@ class Pet(db.Model):
         autoincrement=True
     )
 
-    pet_name = db.Colum(
+    pet_name = db.Column(
         db.String(50),
         nullable=False
     )
@@ -38,7 +38,7 @@ class Pet(db.Model):
 
     photo_url = db.Column(
         db.Text,
-        nullable=False 
+        nullable=False
     )
 
     age = db.Column(
@@ -48,7 +48,7 @@ class Pet(db.Model):
 
     pet_notes = db.Column(
         db.Text,
-        nullable=False 
+        nullable=False
     )
 
     available = db.Column(

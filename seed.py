@@ -12,14 +12,14 @@ db.create_all()
 
 #Add pets
 
-hunter = Pet(pet_name='Hunter', species='Dog', photo_url="", age="Baby", 
-            notes="This is a cute puppy", available="True")
-sophie = Pet(pet_name='Sophie', species='Cat', photo_url="", age="Senior", 
-            notes="", available="False") 
+hunter = Pet(pet_name='Hunter', species='Dog', photo_url="", age="Baby",
+            pet_notes="This is a cute puppy", available=True)
+sophie = Pet(pet_name='Sophie', species='Cat', photo_url="", age="Senior",
+            pet_notes="", available=False)
 
 # Add new objects to session, so they'll persist
 db.session.add(hunter)
-db.session.add(rick)
+db.session.add(sophie)
 
 #commit
 db.session.commit()

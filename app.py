@@ -4,10 +4,9 @@ import os
 
 from flask import Flask,redirect, request, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_wtf import FlaskForm
-from wtforms import Stringfield, FloatField
+from forms import AddPetForm
 
-from models import connect_db
+from models import connect_db, db, Pet
 
 app = Flask(__name__)
 
@@ -15,6 +14,9 @@ app.config['SECRET_KEY'] = "secret"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     "DATABASE_URL", "postgresql:///adopt")
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 
 connect_db(app)
 
@@ -24,3 +26,32 @@ connect_db(app)
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
+
+@app.get('/')
+def show_pet_listing():
+    """
+    shows all pets
+    """
+    #get listing of all pets from database
+    pets = Pet.query.all() #[obj, obj]
+    #render html passing in pets
+    return render_template("pet-listing.html", pets=pets)
+
+@app.route("/add", methods=["GET", "POST"])
+def add_pet():
+    """Add a pet form; handle adding. """
+
+    form = AddPetForm()
+
+    if form.validate_on_submit():
+        pet_name = form.pet_name.data
+        species = form.species.data
+        photo_url = form.photo_url.data
+        age = form.age.data
+        pet_notes = form.pet_notes.data
+
+        return redirect("/add")
+
+    else:
+        return render_template('add-pet-form.html', form=form)
+
