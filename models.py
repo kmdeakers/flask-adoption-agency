@@ -55,3 +55,11 @@ class Pet(db.Model):
         db.Boolean,
         default=True
     )
+
+    # @classmethod
+    # def add_pet(cls, pet):
+    #     """Takes in pet data and adds to database"""
+
+
+    #     db.session.add(pet)
+    #     db.session.commit()

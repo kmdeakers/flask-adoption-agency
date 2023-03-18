@@ -2,15 +2,18 @@
 content %}
 <h1>Adopt a Pet</h1>
 {% for pet in pets %}
-<div>
-  <img src="{{pet.photo_url}}" alt="Photo of a pet" />
-  {% if pet.available %}
-  <p>{{pet.pet_name}} is available</p>
-  {% else %}
-  <p>{{pet.pet_name}} is unavailable</p>
-  {% endif %}
-</div>
+
+  <div class="col-4">
+    <img src="{{pet.photo_url}}" alt="Photo of a pet" style="width: 100%"/>
+    {% if pet.available %}
+    <p>{{pet.pet_name}} is available</p>
+    {% else %}
+    <p>{{pet.pet_name}} is unavailable</p>
+    {% endif %}
+  </div>
+
+{% endfor %}
 <form action="/add" method="get">
   <button class="btn btn-primary">Add a Pet</button>
 </form>
-{% endfor %} {% endblock %}
+{% endblock %}

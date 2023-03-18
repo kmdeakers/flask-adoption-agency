@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Flask,redirect, request, render_template
+from flask import Flask,redirect, request, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import AddPetForm
 
@@ -50,7 +50,14 @@ def add_pet():
         age = form.age.data
         pet_notes = form.pet_notes.data
 
-        return redirect("/add")
+        pet = Pet(pet_name=pet_name, species=species, photo_url=photo_url,
+                    age=age, pet_notes=pet_notes)
+        # breakpoint()
+        db.session.add(pet)
+        db.session.commit()
+
+        flash(f"{pet_name} added!")
+        return redirect("/")
 
     else:
         return render_template('add-pet-form.html', form=form)
